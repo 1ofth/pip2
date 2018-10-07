@@ -127,19 +127,7 @@
     function newRow(input) {
 
         if(input["X"] === undefined){
-            document.getElementById("errors").innerHTML = "X координата не входит в ОДЗ";
-            setTimeout(function(){
-                document.getElementById("errors").innerHTML = "";
-            }, 5000);
-            return;
-        } else if(input["Y"] === undefined) {
-            document.getElementById("errors").innerHTML = "Y координата не входит в ОДЗ";
-            setTimeout(function(){
-                document.getElementById("errors").innerHTML = "";
-            }, 5000);
-            return;
-        } else if(input["R"] === undefined) {
-            document.getElementById("errors").innerHTML = "R не входит в ОДЗ";
+            document.getElementById("errors").innerHTML = "Координаты не входят в ОДЗ";
             setTimeout(function(){
                 document.getElementById("errors").innerHTML = "";
             }, 5000);
