@@ -10,17 +10,38 @@
     <meta charset="utf-8">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="click.js"></script>
-    <script src="graph.js"></script>
     <script src="send.js"></script>
-    <title>php + js</title>
+    <script src="graph.js"></script>
+    <title>Lab2</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body >
 <main>
+
+
+<script>
+    // здесь все относительно нормально
+
+
+    function drawAllDots() {
+        <%
+            ArrayList history =(ArrayList) session.getAttribute("history");
+            if(history!=null){
+                for (Object item : history ) {
+                    Point point = (Point) item;
+        %>
+        drawDot(<%=point.x%>, <%=point.y%>, <%=point.R%>, document.getElementById("R").value);
+        <%
+                }
+            }
+        %>
+    }
+
+</script>
     <header id="header">
         <div class="head">Группа P3212</div>
-        <div class="head">Ибраимов Эдем</div>
-        <div class="head">Вариант 28205</div>
+        <div class="head">Ибраимов Эдем, Морозов Иван</div>
+        <div class="head">Вариант 40192</div>
     </header>
 
     <div class="wrapper">
@@ -64,7 +85,7 @@
 
                 <br><br>
                 <div class="flex">
-                    // вот здесь ПРОБЛЕМА
+                    <!--вот здесь ПРОБЛЕМА-->
                     <input class="download" id="btn" onclick="getRows(event)" type="button"  value="Проверить">
                 </div>
             </form>
@@ -87,7 +108,7 @@
             </tr>
             </tbody>
                 <%
-                    ArrayList history =(ArrayList) session.getAttribute("history");
+                    //ArrayList history =(ArrayList) session.getAttribute("history");
                     if (history != null) {
                         Collections.reverse(history);
                         for (Object item : history ) {
@@ -111,7 +132,6 @@
 </main>
 
 <script type="text/javascript">
-
 
     function buttonClick(id) {
         let i;

@@ -17,12 +17,18 @@ function clickHandler(event){
         let xP = ((x-canvasRect.left)-canvasRect.width/2);
         let yP = (canvasRect.height/2-((y-canvasRect.top+headerRect.top)));
 
+        let xCoordinate = (4*r*xP/canvasRect.width).toFixed(3);
+        let yCoordinate = (4*r*yP/canvasRect.height).toFixed(3);
+        console.log(xCoordinate + "  " + yCoordinate);
+
+        drawDot(xCoordinate, yCoordinate, r, r);
+
         $.ajax
         ({
             type: "POST",
             data:{
-                "X": (4*r*xP/canvasRect.width).toFixed(3),
-                "Y": (4*r*yP/canvasRect.height).toFixed(3),
+                "X": xCoordinate,
+                "Y": yCoordinate,
                 "R": r
             },
             url: 'control',
