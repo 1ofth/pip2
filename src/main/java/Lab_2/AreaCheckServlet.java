@@ -36,7 +36,6 @@ public class AreaCheckServlet extends HttpServlet {
             newPoint.execTime = String.format("%.5f", (double)(System.nanoTime() - startTime) / 1000 / 1000);
             list.add(newPoint);
         } catch (Exception e){
-            e.printStackTrace();
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         }
 
@@ -63,5 +62,4 @@ public class AreaCheckServlet extends HttpServlet {
         }
         return false;
     }
-
 }

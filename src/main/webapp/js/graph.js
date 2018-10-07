@@ -1,7 +1,7 @@
 function drawDot(x, y, r, R) {
     // r - current radius
     // R - global one
-    // NEVER change it. Don't mind how it works, eklm
+    // NEVER change it. Don't mind how it works, eklmn
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
 
