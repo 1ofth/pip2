@@ -215,13 +215,14 @@
         td5.innerHTML = input["time"];
         td6.innerHTML = input["work_time"];
     }
+
     function isValid () {
         let message;
 
         let Yinput = document.getElementById("Y");
         let Y = Yinput.value.replace(",", ".");
         document.getElementById("Y").value =  Y.toString();
-        if (Y < -5 || Y > 5 || isNaN(Y) || Y == "" || Y.length > 7){
+        if (Y < -5 || Y > 5 || isNaN(Y) || Y === "" || Y.length > 7){
             message = "Некорректно задано значение Y";
         }
         if (message) {
@@ -236,7 +237,6 @@
             Yinput.style.backgroundColor = 'white';
             return true;
         }
-
     }
 
 </script>
