@@ -7,15 +7,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <meta charset="utf-8">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="click.js"></script>
+    <script src="graph.js"></script>
+    <script src="send.js"></script>
     <title>php + js</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body >
 <main>
-    <header>
+    <header id="header">
         <div class="head">Группа P3212</div>
         <div class="head">Ибраимов Эдем</div>
         <div class="head">Вариант 28205</div>
@@ -23,15 +25,12 @@
 
     <div class="wrapper">
         <div class="left-column">
-            <img id="img_task" src="img/areas.png">
-            <canvas id="graph">
-
+            <canvas id="canvas" onclick="clickHandler(event)" width="400" height="400">
             </canvas>
-
         </div>
         <div class="right-column">
             <%--action="control" method="get" onsubmit="return isValid();"--%>
-            <form id="main_form"  >
+            <form id="main_form" method="post" >
 
                 <p>Выберите X</p>
                 <label>-4<input type="radio"   name="X" value="-2"></label>
@@ -57,13 +56,15 @@
                 <button type="button" id="4" name="R" value="4" onclick="buttonClick(4)">4</button>
                 <button type="button" id="5" name="R" value="5" onclick="buttonClick(5)">5</button>
 
+                <input id="R" type="hidden" value="nk">
 
-                <label for="R"></label>
-                <input id="R" type="text" name="R" hidden><br>
+                <script>
+                    window.onload = drawGraph( document.getElementById("R").value);
+                </script>
 
                 <br><br>
                 <div class="flex">
-                    <input class="download" id="btn" type="submit"   value="Проверить">
+                    <input class="download" id="btn" onclick="getRows(event)" type="button"  value="Проверить">
                     <input class="download" id="cancel" type="submit"    value="Очистить">
 
                 </div>
@@ -86,7 +87,6 @@
                 <th>Время работы</th>
             </tr>
             </tbody>
-            <%--<jsp:useBean id='myAttribute' class='Lab_2.AreaCheckServlet' scope='session'/>--%>
                 <%
                     ArrayList history =(ArrayList) session.getAttribute("history");
                     if (history != null) {
@@ -99,8 +99,8 @@
                     <td><%=point.y%></td>
                     <td><%=point.R%></td>
                     <td><%=point.isInArea%></td>
-                    <td>2121</td>
-                    <td>1212</td>
+                    <td><%=point.time%></td>
+                    <td><%=point.execTime%></td>
                 </tr>
                 <%
                         }
@@ -119,10 +119,12 @@
         for (i = 1; i <= 5; i++ ) {
             if (i === id) {
                 document.getElementById(i).style.color = '#fc0707';
-                document.getElementById(i).style.background = '#ffffff';
-            } else {document.getElementById(i).style.color = '#000000';}
+            } else {
+                document.getElementById(i).style.color = '#000000';
+            }
         }
         document.getElementById("R").value = document.getElementById(id).value;
+        drawGraph(id);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -133,37 +135,14 @@
             return false;
         });
     });
+
     function clear() {
         let req = new XMLHttpRequest;
         req.open('POST','clear.php');
         req.send(null);
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('btn').addEventListener('click', function (e) {
-            e.preventDefault();
-            if (isValid()) {
-                let data;
-                data = {
-                    "X": $("form :radio[name=X]:checked").val(),
-                    "Y": $("#main_form").find('input[name=Y]').val(),
-                    "R": $("#main_form").find('input[name=R]').val()
-                };
-                console.log("sds");
-                $.ajax
-                ({
-                    type: "POST",
-                    data: data,
-                    url: 'control',
-                    success: function (serverData) {
-                       // console.log(serverData);
-                        newRow(serverData);
-                    }
-                });
-            }
-        });
-    });
-
+    /*
     function submit(e) {
         e.preventDefault();
         if (isValid()) {
@@ -186,7 +165,7 @@
         }
         return false;
     }
-
+*/
     function newRow(input) {
         let row = document.createElement("tr");
         let table = document.getElementById("points");

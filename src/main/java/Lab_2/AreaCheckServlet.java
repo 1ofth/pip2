@@ -5,6 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +17,23 @@ public class AreaCheckServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        long startTime = System.nanoTime();
+
         if(list==null){
             list=new ArrayList();
             request.getSession().setAttribute("history", list);
         }
+
+        String execTime = "";
+        String time = (LocalDateTime.now()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
         Point newPoint = null;
         try{
-             newPoint = new Point(Double.parseDouble(request.getParameter("X")),
+            newPoint = new Point(Double.parseDouble(request.getParameter("X")),
                     Double.parseDouble(request.getParameter("Y")), Integer.parseInt(request.getParameter("R")));
             newPoint.isInArea = checkArea(newPoint.x, newPoint.y, newPoint.R);
+            newPoint.time = time;
+            newPoint.execTime = String.format("%.5f", (double)(System.nanoTime() - startTime) / 1000 / 1000);
             list.add(newPoint);
         } catch (Exception e){
             e.printStackTrace();
@@ -30,18 +42,23 @@ public class AreaCheckServlet extends HttpServlet {
 
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        out.println("{\"X\":\"" + newPoint.x + "\",\"Y\":\"" + newPoint.y + "\",\"R\":\"" + newPoint.R +
-                "\",\"result\":\""+ newPoint.isInArea + "\",\"time\":\"122\",\"work_time\":\"233\"}");
+        out.println("{\"X\":\"" + newPoint.x +
+                    "\",\"Y\":\"" + newPoint.y +
+                    "\",\"R\":\"" + newPoint.R +
+                    "\",\"result\":\""+ newPoint.isInArea +
+                    "\",\"time\":\"" + newPoint.time +
+                    "\",\"work_time\":\"" + newPoint.execTime +
+                    "\"}");
     }
 
     public static boolean checkArea(double x, double y, int R){
         if(x<=0 && y>=0 && x*x+y*y<=R*R){
             return true;
         }
-        if(x<=0 && y<=0 && x>=-R/2 && y>=-R){
+        if(x<=0 && y<=0 && x>=-(double)(R)/2 && y>=-R){
             return true;
         }
-        if(x>=0 && y>=0 && y<=R && x<=R/2){
+        if(x>=0 && y>=0 && y<=R && x<=(double)(R)/2){
             return true;
         }
         return false;
