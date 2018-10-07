@@ -1,3 +1,4 @@
+// обработка нажатия на картинку - все работает
 function clickHandler(event){
     var x = event.pageX;
     var y = event.pageY;

@@ -1,20 +1,25 @@
+// здесь все относительно нормально
 
+function drawDot(x, y, R) {
+    var canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
 
-function getR(){
-    let value = document.getElementById("R").value;
-    if( isFinite(+value) ){
-        return +value;
-    } else {
-        return "R";
-    }
-}
+    let yOrtPosition = canvas.height / 2;
+    let xOrtPosition = canvas.width / 2;
 
-function drawDot(x, y) {
-    ;
-
+    ctx.beginPath();
+    var indent = xOrtPosition/10;
+    console.log(indent);
+    console.log(xOrtPosition+(x*1));
+    ctx.arc(xOrtPosition-(x*indent*R)-indent+5, yOrtPosition-(y*indent*R)-indent, 3, 0, Math.PI*2);
+    ctx.fillStyle = "yellow";
+    ctx.fill();
+    ctx.closePath();
+    ctx.stroke();
 }
 
 function drawGraph(R){
+    var canvas = document.getElementById("canvas");
     let ctx = document.getElementById("canvas").getContext("2d");
     let yOrtPosition = canvas.height / 2;
     let xOrtPosition = canvas.width / 2;
@@ -64,6 +69,8 @@ function drawGraph(R){
         drawMarks(radios, "R");
         drawMarks(radios / 2,"R/2");
     }
+
+
 
     function drawAxis(){
         ctx.moveTo(xOrtPosition, indent);

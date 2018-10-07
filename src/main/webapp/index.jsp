@@ -64,9 +64,8 @@
 
                 <br><br>
                 <div class="flex">
+                    // вот здесь ПРОБЛЕМА
                     <input class="download" id="btn" onclick="getRows(event)" type="button"  value="Проверить">
-                    <input class="download" id="cancel" type="submit"    value="Очистить">
-
                 </div>
             </form>
 
@@ -127,22 +126,7 @@
         drawGraph(id);
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('cancel').addEventListener('click', function(e){
-            e.preventDefault();
-            clear();
-            location.reload();
-            return false;
-        });
-    });
-
-    function clear() {
-        let req = new XMLHttpRequest;
-        req.open('POST','clear.php');
-        req.send(null);
-    }
-
-    /*
+    /* не нашел, где можно использовать
     function submit(e) {
         e.preventDefault();
         if (isValid()) {
