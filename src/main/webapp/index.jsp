@@ -30,7 +30,7 @@
                 for (Object item : history ) {
                     Point point = (Point) item;
         %>
-        drawDot(<%=point.x%>, <%=point.y%>, <%=point.R%>, document.getElementById("R").value);
+        drawDot(<%=point.x%>, <%=point.y%>, document.getElementById("R").value);
         <%
                 }
             }

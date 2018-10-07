@@ -3,6 +3,9 @@
 	padding: 0;
 }
 
+#canvas{
+	border: #2c3e50 solid 1px;
+}
 body {
 	width: 100%;
 	background-image: url(../img/what-the-hex.png);

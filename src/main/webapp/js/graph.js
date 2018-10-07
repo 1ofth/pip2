@@ -1,5 +1,8 @@
-function drawDot(x, y, r, R) {
-    var canvas = document.getElementById("canvas");
+function drawDot(x, y, R) {
+    // r - current radius
+    // R - global one
+    // NEVER change it. Don't mind how it works, eklm
+    let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
 
     let yOrtPosition = canvas.height / 2;
@@ -7,10 +10,12 @@ function drawDot(x, y, r, R) {
 
     if(isFinite(+R)) {
         ctx.beginPath();
-        var indent = xOrtPosition / 10;
-        ctx.arc(xOrtPosition + (x * indent) * r / R, yOrtPosition - (y * indent) * r / R, 2, 0, Math.PI * 2);
+
+        let indent = xOrtPosition / 10;
+        ctx.arc(xOrtPosition + x*indent*5/R, yOrtPosition - y*indent*5/R, 2, 0, Math.PI * 2);
         ctx.fillStyle = "darkblue";
         ctx.fill();
+
         ctx.closePath();
         ctx.stroke();
     }
@@ -61,7 +66,7 @@ function drawGraph(R){
     ctx.fillStyle = "black";
     drawAxis();
 
-    
+
     if(isFinite(+R)) {
         drawMarks(radios, +R);
         drawMarks(radios / 2,+R / 2);

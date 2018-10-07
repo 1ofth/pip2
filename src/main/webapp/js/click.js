@@ -20,7 +20,6 @@ function clickHandler(event){
 
         let xCoordinate = (4*r*xP/canvasRect.width).toFixed(3);
         let yCoordinate = (4*r*yP/canvasRect.height).toFixed(3);
-        console.log(xCoordinate + "  " + yCoordinate);
 
         drawDot(xCoordinate, yCoordinate, r, r);
 
