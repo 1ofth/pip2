@@ -61,6 +61,7 @@ function drawGraph(R){
     ctx.fillStyle = "black";
     drawAxis();
 
+    
     if(isFinite(+R)) {
         drawMarks(radios, +R);
         drawMarks(radios / 2,+R / 2);
