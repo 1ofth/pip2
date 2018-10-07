@@ -17,27 +17,6 @@
 </head>
 <body >
 <main>
-
-
-<script>
-    // здесь все относительно нормально
-
-
-    function drawAllDots() {
-        <%
-            ArrayList history =(ArrayList) session.getAttribute("history");
-            if(history!=null){
-                for (Object item : history ) {
-                    Point point = (Point) item;
-        %>
-        drawDot(<%=point.x%>, <%=point.y%>, document.getElementById("R").value);
-        <%
-                }
-            }
-        %>
-    }
-
-</script>
     <header id="header">
         <div class="head">Группа P3212</div>
         <div class="head">Ибраимов Эдем, Морозов Иван</div>
@@ -86,7 +65,7 @@
 
                 <br><br>
                 <div class="flex">
-                    <input class="download" id="btn" onclick="getRows(event)" type="button"  value="Проверить">
+                    <input class="download" id="btn" onclick="getRows()" type="button"  value="Проверить">
                 </div>
             </form>
 
@@ -108,6 +87,7 @@
             </tr>
             </tbody>
                 <%
+                    ArrayList history =(ArrayList) session.getAttribute("history");
                     if (history != null) {
                         Collections.reverse(history);
                         for (Object item : history ) {
