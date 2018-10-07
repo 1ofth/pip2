@@ -5,12 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class AreaCheckServlet extends HttpServlet {
     private List list = null;
@@ -24,8 +23,9 @@ public class AreaCheckServlet extends HttpServlet {
             request.getSession().setAttribute("history", list);
         }
 
-        String execTime = "";
-        String time = (LocalDateTime.now()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Locale local = new Locale("ru","RU");
+        DateFormat df = DateFormat.getDateTimeInstance (DateFormat.DEFAULT, DateFormat.DEFAULT, local);
+        String time =  df.format(new Date());
 
         Point newPoint = null;
         try{
@@ -51,14 +51,14 @@ public class AreaCheckServlet extends HttpServlet {
                     "\"}");
     }
 
-    public static boolean checkArea(double x, double y, int R){
+    private static boolean checkArea(double x, double y, int R){
         if(x<=0 && y>=0 && x*x+y*y<=R*R){
             return true;
         }
         if(x<=0 && y<=0 && x>=-(double)(R)/2 && y>=-R){
             return true;
         }
-        if(x>=0 && y>=0 && y<=R && x<=(double)(R)/2){
+        if(x>=0 && y>=0 && y<= -2*x + R){
             return true;
         }
         return false;

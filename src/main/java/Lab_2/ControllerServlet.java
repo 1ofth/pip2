@@ -13,7 +13,6 @@ public class ControllerServlet extends HttpServlet {
 		String yString=request.getParameter("Y");
 		String RString=request.getParameter("R");
 
-
 		if(xString == null || yString == null || RString == null){
 			request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		} else {

@@ -9,10 +9,10 @@
 <head>
     <meta charset="utf-8">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="click.js"></script>
-    <script src="send.js"></script>
-    <script src="graph.js"></script>
-    <title>Lab2</title>
+    <script src="js/click.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/send.js"></script>
+    <title>Lab work 2</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body >
@@ -50,23 +50,22 @@
             </canvas>
         </div>
         <div class="right-column">
-            <%--action="control" method="get" onsubmit="return isValid();"--%>
-            <form id="main_form" method="post" >
+            <form id="main_form" method="post" onsubmit="return false;" >
 
                 <p>Выберите X</p>
-                <label>-4<input type="radio"   name="X" value="-2"></label>
-                <label>-3<input type="radio"   name="X" value="-1.5"></label>
-                <label>-2<input type="radio"  name="X" value="-1"></label>
-                <label>-1<input type="radio"  name="X" value="-0.5"></label>
+                <label>-2<input type="radio"   name="X" value="-2"></label>
+                <label>-1.5<input type="radio"   name="X" value="-1.5"></label>
+                <label>-1<input type="radio"  name="X" value="-1"></label>
+                <label>-0.5<input type="radio"  name="X" value="-0.5"></label>
                 <label>0<input type="radio"  name="X" value="0" checked></label>
-                <label>1<input type="radio"  name="X" value="0.5"></label>
-                <label>2<input type="radio"  name="X" value="1"></label>
-                <label>3<input type="radio"  name="X" value="1.5"></label>
-                <label>4<input type="radio"   name="X" value="2"></label>
+                <label>0.5<input type="radio"  name="X" value="0.5"></label>
+                <label>1<input type="radio"  name="X" value="1"></label>
+                <label>1.5<input type="radio"  name="X" value="1.5"></label>
+                <label>2<input type="radio"   name="X" value="2"></label>
 
                 <br><br>
                 <p>Выберите Y</p>
-                <input type="text" name="Y" id="Y"  onchange="return isValid();"  placeholder="{-3 .. 5}" />
+                <input type="text" name="Y" id="Y"  onchange="isValid();"  placeholder="{-3 .. 5}" />
                 <br><br>
 
 
@@ -77,15 +76,16 @@
                 <button type="button" id="4" name="R" value="4" onclick="buttonClick(4)">4</button>
                 <button type="button" id="5" name="R" value="5" onclick="buttonClick(5)">5</button>
 
-                <input id="R" type="hidden" value="nk">
+                <input id="R" name="R" type="hidden" value="nk">
 
                 <script>
-                    window.onload = drawGraph( document.getElementById("R").value);
+                    window.onload = function () {
+                        drawGraph( document.getElementById("R").value);
+                    }
                 </script>
 
                 <br><br>
                 <div class="flex">
-                    <!--вот здесь ПРОБЛЕМА-->
                     <input class="download" id="btn" onclick="getRows(event)" type="button"  value="Проверить">
                 </div>
             </form>
@@ -108,7 +108,6 @@
             </tr>
             </tbody>
                 <%
-                    //ArrayList history =(ArrayList) session.getAttribute("history");
                     if (history != null) {
                         Collections.reverse(history);
                         for (Object item : history ) {
@@ -132,8 +131,8 @@
 </main>
 
 <script type="text/javascript">
-
     function buttonClick(id) {
+        document.getElementById("errors").innerHTML = "";
         let i;
         for (i = 1; i <= 5; i++ ) {
             if (i === id) {
@@ -145,31 +144,6 @@
         document.getElementById("R").value = document.getElementById(id).value;
         drawGraph(id);
     }
-
-    /* не нашел, где можно использовать
-    function submit(e) {
-        e.preventDefault();
-        if (isValid()) {
-            let data;
-            data = {
-                "X": $("form :radio[name=X]:checked").val(),
-                "Y": $("#main_form").find('input[name=Y]').val(),
-                "R": $("form :radio[name=R]:checked").val()
-            };
-            fetch('control', { method: 'POST', body: data, credentials: 'include' })
-                .then(function(response) {
-                    if (response.status !== 200) {
-                        console.log('любимый сервер вернул ' +  response.status);
-                        return;
-                    }
-                    response.json().then(function(data) {
-                        newRow(data);
-                    });
-                });
-        }
-        return false;
-    }
-*/
     function newRow(input) {
         let row = document.createElement("tr");
         let table = document.getElementById("points");
