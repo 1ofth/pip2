@@ -125,6 +125,27 @@
         drawGraph(id);
     }
     function newRow(input) {
+
+        if(input["X"] === undefined){
+            document.getElementById("errors").innerHTML = "X координата не входит в ОДЗ";
+            setTimeout(function(){
+                document.getElementById("errors").innerHTML = "";
+            }, 5000);
+            return;
+        } else if(input["Y"] === undefined) {
+            document.getElementById("errors").innerHTML = "Y координата не входит в ОДЗ";
+            setTimeout(function(){
+                document.getElementById("errors").innerHTML = "";
+            }, 5000);
+            return;
+        } else if(input["R"] === undefined) {
+            document.getElementById("errors").innerHTML = "R не входит в ОДЗ";
+            setTimeout(function(){
+                document.getElementById("errors").innerHTML = "";
+            }, 5000);
+            return;
+        }
+
         let row = document.createElement("tr");
         let table = document.getElementById("points");
         let secondRow = table.children[1];
@@ -145,12 +166,15 @@
         row.appendChild(td5);
         row.appendChild(td6);
         // Наполняем ячейки
+
         td1.innerHTML = input["X"];
         td2.innerHTML = input["Y"];
         td3.innerHTML = input["R"];
         td4.innerHTML = input["result"];
         td5.innerHTML = input["time"];
         td6.innerHTML = input["work_time"];
+
+        drawDot(+input["X"], +input["Y"], +input["R"], +input["R"]);
     }
     function isValid () {
         let message;
@@ -164,10 +188,7 @@
         if (message) {
             document.getElementById("errors").innerHTML = message;
             Yinput.style.backgroundColor = '#FF4136';
-            setTimeout(function(){
-                Yinput.value = "";
-                Yinput.style.backgroundColor = 'white';}, 300);
-            return false;
+
         } else {
             document.getElementById("errors").innerHTML = "";
             Yinput.style.backgroundColor = 'white';

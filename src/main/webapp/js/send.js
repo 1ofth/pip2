@@ -23,6 +23,5 @@ function getRows() {
                 newRow(serverData);
             }
         });
-        drawDot(x, y, R, R);
     }
 }
