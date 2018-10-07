@@ -57,7 +57,9 @@ footer {
 	justify-content: space-between;
 	box-sizing: border-box;
 }
-
+button {
+	padding: 6px 10px 6px 10px;
+}
  #errors {
  	color: #FF4136;
  }

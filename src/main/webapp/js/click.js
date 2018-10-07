@@ -9,10 +9,11 @@ function clickHandler(event){
 
     var r = document.getElementById("R").value;
 
-    if(!isFinite(+r)){
-        // Coordinates can not be counted
-        console.log("R is not entered!");
-    } else {
+    if ($("#main_form").find('input[name=R]').val() === "nk") {
+        document.getElementById("errors").innerHTML = "Не указан радиус";
+        return;
+    }
+    if(isFinite(+r)){
         // Coordinates for a plot
         let xP = ((x-canvasRect.left)-canvasRect.width/2);
         let yP = (canvasRect.height/2-((y-canvasRect.top+headerRect.top)));

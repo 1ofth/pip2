@@ -1,20 +1,21 @@
-// вынес функцию в отдельный файл ради эксперимента - ничего не изменилось
 function getRows(event) {
     if (isValid()) {
+        if ($("#main_form").find('input[name=R]').val() === "nk") {
+            document.getElementById("errors").innerHTML = "Не указан радиус";
+            return false;
+        }
         let data;
         data = {
-            "X": 1, //$("form :radio[name=X]:checked").val(),
+            "X": $("form :radio[name=X]:checked").val(),
             "Y": $("#main_form").find('input[name=Y]').val(),
             "R": $("#main_form").find('input[name=R]').val()
         };
-        console.log(data);
         $.ajax
         ({
             type: "POST",
             data: data,
             url: 'control',
             success: function (serverData) {
-                console.log(serverData);
                 newRow(serverData);
             }
         });
