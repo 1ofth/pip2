@@ -8,10 +8,17 @@
         <servlet-name>ControllerServlet</servlet-name>
         <servlet-class>Lab_2.ControllerServlet</servlet-class>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/control</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>HistoryGetServlet</servlet-name>
+        <servlet-class>Lab_2.HistoryGetServlet</servlet-class>
+    </servlet>
 
     <servlet>
         <servlet-name>AreaCheckServlet</servlet-name>

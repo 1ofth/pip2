@@ -3,6 +3,9 @@
 	padding: 0;
 }
 
+#canvas{
+	border: #2c3e50 solid 1px;
+}
 body {
 	width: 100%;
 	background-image: url(../img/what-the-hex.png);
@@ -57,7 +60,9 @@ footer {
 	justify-content: space-between;
 	box-sizing: border-box;
 }
-
+button {
+	padding: 6px 10px 6px 10px;
+}
  #errors {
  	color: #FF4136;
  }
