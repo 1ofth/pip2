@@ -12,8 +12,11 @@ public class ControllerServlet extends HttpServlet {
 		String xString=request.getParameter("X");
 		String yString=request.getParameter("Y");
 		String RString=request.getParameter("R");
+        String command=request.getParameter("command");
 
-		if(xString == null || yString == null || RString == null){
+		if(command!=null && command.equals("getThem!")) {
+		    request.getServletContext().getNamedDispatcher("HistoryGetServlet").forward(request, response);
+        } else if (xString == null || yString == null || RString == null){
 			request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		} else {
 			request.getServletContext().getNamedDispatcher("AreaCheckServlet").forward(request, response);

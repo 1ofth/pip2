@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class AreaCheckServlet extends HttpServlet {
-    private List list = null;
+    private volatile List list = null;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -1,4 +1,4 @@
-function drawDot(x, y, R) {
+function drawDot(x, y, r, R) {
     // r - current radius
     // R - global one
     // NEVER change it. Don't mind how it works, eklm
@@ -9,15 +9,17 @@ function drawDot(x, y, R) {
     let xOrtPosition = canvas.width / 2;
 
     if(isFinite(+R)) {
-        ctx.beginPath();
+        if(R === r) {
+            ctx.beginPath();
 
-        let indent = xOrtPosition / 10;
-        ctx.arc(xOrtPosition + x*indent*5/R, yOrtPosition - y*indent*5/R, 2, 0, Math.PI * 2);
-        ctx.fillStyle = "darkblue";
-        ctx.fill();
+            let indent = xOrtPosition / 10;
+            ctx.arc(xOrtPosition + x * indent * 5 / R, yOrtPosition - y * indent * 5 / R, 2, 0, Math.PI * 2);
+            ctx.fillStyle = "darkblue";
+            ctx.fill();
 
-        ctx.closePath();
-        ctx.stroke();
+            ctx.closePath();
+            ctx.stroke();
+        }
     }
 }
 
@@ -121,6 +123,37 @@ function drawGraph(R){
     }
 }
 
+function drawAllDots() {
+    $.ajax
+    ({
+        type: "POST",
+        data:{
+            "command":"getThem!"
+        },
+        url: 'control',
+        complete: function (serverData) {
+            let values = serverData.responseText;
+            if(values.search("HTTP Status 500") >= 0){
+                return;
+            }
+            let array = [];
+            while(true){
+                array.push( values.substr(0, values.indexOf("}")) + "}" );
+                values = values.substr(values.indexOf("}")+2);
+                if(values.length === 0){
+                    break;
+                }
+            }
+
+            i = 0;
+            for(i ; i < array.length; i++){
+                let val = JSON.parse(array[i]);
+                drawDot(val.X, val.Y, val.R, document.getElementById("R").value);
+            }
+        }
+    });
+
+}
 
 
 

@@ -1,15 +1,19 @@
-function getRows(event) {
+function getRows() {
     if (isValid()) {
         if ($("#main_form").find('input[name=R]').val() === "nk") {
             document.getElementById("errors").innerHTML = "Не указан радиус";
             return false;
         }
-        let data;
-        data = {
-            "X": $("form :radio[name=X]:checked").val(),
-            "Y": $("#main_form").find('input[name=Y]').val(),
-            "R": $("#main_form").find('input[name=R]').val()
+        let x = $("form :radio[name=X]:checked").val();
+        let y = $("#main_form").find('input[name=Y]').val();
+        let R = $("#main_form").find('input[name=R]').val();
+
+        let data = {
+            "X": x,
+            "Y": y,
+            "R": R
         };
+
         $.ajax
         ({
             type: "POST",
@@ -19,5 +23,6 @@ function getRows(event) {
                 newRow(serverData);
             }
         });
+        drawDot(x, y, R, R);
     }
 }
