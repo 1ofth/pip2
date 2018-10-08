@@ -26,7 +26,6 @@ public class HistoryGetServlet extends HttpServlet {
         if(list == null){
             response.sendError(500, "Some bugs with array!");
         } else {
-
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
             for (Object newPoint : list) {

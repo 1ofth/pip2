@@ -22,7 +22,6 @@ public class AreaCheckServlet extends HttpServlet {
             list=new ArrayList();
             request.getSession().setAttribute("history", list);
         }
-
         Locale local = new Locale("ru","RU");
         DateFormat df = DateFormat.getDateTimeInstance (DateFormat.DEFAULT, DateFormat.DEFAULT, local);
         String time =  df.format(new Date());

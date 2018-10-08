@@ -132,10 +132,12 @@ function drawAllDots() {
         },
         url: 'control',
         complete: function (serverData) {
+            console.log("here I am 1");
             let values = serverData.responseText;
             if(values.search("HTTP Status 500") >= 0){
                 return;
             }
+            console.log("here I am 2");
             let array = [];
             while(true){
                 array.push( values.substr(0, values.indexOf("}")) + "}" );
@@ -145,9 +147,10 @@ function drawAllDots() {
                 }
             }
 
-            i = 0;
+            let i = 0;
             for(i ; i < array.length; i++){
                 let val = JSON.parse(array[i]);
+                console.log(val);
                 drawDot(val.X, val.Y, val.R, document.getElementById("R").value);
             }
         }
