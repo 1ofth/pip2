@@ -40,6 +40,7 @@ function drawGraph(R){
 
     ctx.fillStyle = "lightblue";
 
+    ctx.fillText("Рамочка - ОДЗ", 5, 25);
     ctx.beginPath();
     ctx.arc(xOrtPosition, yOrtPosition, radios*indent, Math.PI, Math.PI*3/2);
     ctx.lineTo(xOrtPosition, yOrtPosition);
@@ -77,13 +78,42 @@ function drawGraph(R){
         drawMarks(radios / 2,"R/2");
     }
 
-    ctx.beginPath();
-    ctx.rect(xOrtPosition-8/R*indent-indent, yOrtPosition-20/R*indent-indent, 16/R*indent+2*indent, 32/R*indent+2*indent);
-    ctx.closePath();
-    ctx.stroke();
 
+    eklm();
     drawAllDots();
 
+    function eklm(){
+        ctx.beginPath();
+        if(R<3) {
+            ctx.rect(xOrtPosition - 8 / R * indent - indent,
+                yOrtPosition - 20 / R * indent - indent,
+                16 / R * indent + 2 * indent,
+                32 / R * indent + 2 * indent);
+            ctx.closePath();
+            ctx.stroke();
+        } else if(R===3) {
+            ctx.rect(xOrtPosition - 8 / R * indent -1.1/2*indent,
+                yOrtPosition - 20 / R * indent - 1.75*indent,
+                16 / R * indent + indent,
+                32 / R * indent + 2.8 * indent);
+            ctx.closePath();
+            ctx.stroke();
+        } else if(R===4) {
+            ctx.rect(xOrtPosition - 8 / R * indent -1.1/2*indent,
+                yOrtPosition - 20 / R * indent - 1.3*indent,
+                16 / R * indent + indent,
+                32 / R * indent + 2.1 * indent);
+            ctx.closePath();
+            ctx.stroke();
+        } else if(R === 5){
+            ctx.rect(xOrtPosition - 8 / R * indent -1/2*indent,
+                yOrtPosition - 20 / R * indent - 1.1*indent,
+                16 / R * indent + indent,
+                32 / R * indent + 1.7 * indent);
+            ctx.closePath();
+            ctx.stroke();
+        }
+    }
 
     function drawAxis(){
         ctx.moveTo(xOrtPosition, indent);
