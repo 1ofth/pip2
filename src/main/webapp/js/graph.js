@@ -77,6 +77,11 @@ function drawGraph(R){
         drawMarks(radios / 2,"R/2");
     }
 
+    ctx.beginPath();
+    ctx.rect(xOrtPosition-8/R*indent-indent, yOrtPosition-20/R*indent-indent, 16/R*indent+2*indent, 32/R*indent+2*indent);
+    ctx.closePath();
+    ctx.stroke();
+
     drawAllDots();
 
 
@@ -102,6 +107,7 @@ function drawGraph(R){
         ctx.fillText("x", canvas.width - indent*3/2, yOrtPosition + indent);
         ctx.stroke();
     }
+
 
     function drawMarks(radius, mark){
         ctx.moveTo(xOrtPosition + radius*indent, yOrtPosition-widthOfGrades);
